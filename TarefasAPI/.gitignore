@@ -1,0 +1,33 @@
+# Build
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações locais sensíveis
+appsettings.Development.json
+
+# Usuário / IDE
+*.user
+*.suo
+
+# Node (caso use frontend depois)
+node_modules/
+
+# Publicação
+publish/
+
+*.docx
+*.doc
