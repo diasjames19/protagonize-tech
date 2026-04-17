@@ -19,21 +19,26 @@ namespace TarefasAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto login)
+        public IActionResult Login(Login login)
         {
-            var token = _loginService.Authenticate(login);
-            
+            var checkDadosUser = new Users();
 
-            if (token == null)
+            if (login.Email == checkDadosUser.Email)
             {
-                return StatusCode(500, "Ocorreu um erro na Authenticate!"); // Retorna um erro genérico para o cliente
+                bool validPassword = BCrypt.Net.BCrypt.Verify(login.Pass, checkDadosUser.Pass);
+                if (!validPassword)
+                {
+                    return StatusCode(401, "Credenciais inválidas!"); // Retorna um erro de não autorizado para o cliente
+                }       
             }
-            else
-            {
-                             
-                return StatusCode(200, $"Login realizado com sucesso! Token: {token}"); // Retorna uma mensagem de sucesso para o cliente
-            }
-            
+            var token = _loginService.Authenticate(login);
+                    if (token == null)
+                    {
+                        return StatusCode(500, "Ocorreu um erro na Authenticate!"); // Retorna um erro genérico para o cliente
+                    }
+          
+             return StatusCode(201, $"Login realizado com sucesso! Token: {token}"); // Retorna uma mensagem de sucesso para o cliente
         }
     }
 }
+

@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
+using TarefasAPI.DTOs;
 namespace TarefasAPI.Services;
 
 public class LoginService
@@ -23,11 +23,12 @@ public class LoginService
         {
             
             var user = _context.Users
-                .FirstOrDefault(u => u.Email == login.Email && u.Pass == login.Pass);
+                .FirstOrDefault(u => u.Email == login.Email );
 
-            if (user == null)
-                return null;
-
+            if (user == null){ 
+                return null; 
+                }
+                    
             var claims = new[]
             {
                 //new Claim(ClaimTypes.Name, user.Email)
@@ -49,10 +50,9 @@ public class LoginService
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        
         }
-        public Users GetUserByEmail(string email)
-        {
-            return _context.Users.FirstOrDefault(u => u.Email == email);
+
         }
-    }
+    
 

@@ -1,7 +1,7 @@
 namespace TarefasAPI.DTOs;
 public class LoginDto
 {
-    public string Name { get; set; }
-       
+    public string email { get; set; }
+    public string pass { get; set; }   
     
 }
